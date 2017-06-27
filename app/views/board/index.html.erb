@@ -1,0 +1,26 @@
+<div class ="container">
+    <h1>2017학년도 서유진의 독서노트</h1> 
+    <h2><a href="/write"> 작성하기 </a></h2>
+    
+    <% @posts. each do |p| %>
+      <b><%= p.id %>번째 독서노트</b>
+        <a href = "/edit/<%= p.id %>">[수정] </a>
+        <a href = "/destroy/<%= p.id %>" data-confirm="삭제하시겠습니까?" data-method="post"> [삭제] </a><br>
+      <b><%= p.title %></b><br><hr>
+      <%= p.content %><hr>
+      <%p.comments.each do |r|%>
+        <p><%= r.content%></p>
+      <% end %>
+          <form action="/comment_write" method="POST">
+             <div class="form-group">
+             <label for="book_comment"></label>
+             <input type="hidden" value="<%= p.id %>" class="form-control" id="book_comment" name="post_id" >
+             <textarea class="form-control"placeholder="기억하고 싶은 구절을 적어주세요." id="exampleTextarea" name="content" rows="2"></textarea>
+             </div>
+             <button type="submit" class="btn btn-primary">저장하기</button>
+         </form>
+         <br>
+
+    <% end %>
+    
+</div>
